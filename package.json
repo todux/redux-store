@@ -5,7 +5,7 @@
   "scripts": {
     "test": "mocha --compilers js:babel-register --recursive --reporter dot",
     "test:watch": "npm test -- --watch",
-    "build": "babel --presets es2015 -d dist src/",
+    "build": "babel -d dist src/",
     "build:watch": "npm run build -- --watch",
     "clean": "rm -rf dist/*"
   },
@@ -23,5 +23,10 @@
     "redux": "^3.1.2",
     "redux-thunk": "^1.0.3",
     "shortid": "^2.2.4"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }
