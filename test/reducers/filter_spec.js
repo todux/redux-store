@@ -1,7 +1,7 @@
 import expect from 'expect'
 
 import reducer from '../../src/reducers/filter'
-import { FILTER } from '../../src/actions'
+import { UPDATE_FILTER } from '../../src/actions'
 
 describe('filter reducer', () => {
 
@@ -12,7 +12,7 @@ describe('filter reducer', () => {
   it('should allow ACTIVE filter', () => {
     expect(
       reducer(undefined, {
-        type: FILTER,
+        type: UPDATE_FILTER,
         filter: 'ACTIVE',
       })
     ).toEqual('ACTIVE')
@@ -21,7 +21,7 @@ describe('filter reducer', () => {
   it('should allow COMPLETED filter', () => {
     expect(
       reducer(undefined, {
-        type: FILTER,
+        type: UPDATE_FILTER,
         filter: 'COMPLETED',
       })
     ).toEqual('COMPLETED')
@@ -30,10 +30,9 @@ describe('filter reducer', () => {
   it('should not apply other filters', () => {
     expect(
       reducer(undefined, {
-        type: FILTER,
+        type: UPDATE_FILTER,
         filter: 'NOT A REAL FILTER'
       })
     ).toEqual('ALL')
   })
 })
-

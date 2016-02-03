@@ -38,15 +38,14 @@ describe('actions', () => {
     })
   })
 
-  describe('filter', () => {
+  describe('updateFilter', () => {
     it('should produce an action to set the current filter', () => {
       const expectedAction = {
-        type: actions.FILTER,
+        type: actions.UPDATE_FILTER,
         filter: actions.Filters.COMPLETED,
       }
 
-      expect(actions.filter(actions.Filters.COMPLETED)).toEqual(expectedAction)
+      expect(actions.updateFilter(actions.Filters.COMPLETED)).toEqual(expectedAction)
     })
   })
 })
-

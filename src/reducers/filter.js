@@ -1,8 +1,8 @@
 import { values } from 'lodash'
-import { INIT, FILTER, Filters } from '../actions'
+import { INIT, UPDATE_FILTER, Filters } from '../actions'
 
 export default function filter(state = 'ALL', action) {
-  if (action.type === FILTER && filterIsValid(action.filter)) {
+  if (action.type === UPDATE_FILTER && filterIsValid(action.filter)) {
     return action.filter
   }
 
