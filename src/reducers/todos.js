@@ -1,5 +1,5 @@
 import shortid from 'shortid'
-import merge from 'lodash.merge'
+import { merge } from 'lodash'
 
 import {
   INIT,

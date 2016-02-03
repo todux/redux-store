@@ -1,5 +1,5 @@
 //import Firebase from 'firebase'
-import find from 'lodash.find'
+import { find } from 'lodash'
 
 //const todosRef = new Firebase("https://shining-inferno-825.firebaseio.com/todos")
 

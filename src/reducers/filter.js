@@ -1,5 +1,4 @@
-import values from 'lodash.values'
-
+import { values } from 'lodash'
 import { INIT, FILTER, Filters } from '../actions'
 
 export default function filter(state = 'ALL', action) {
