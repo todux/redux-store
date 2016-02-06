@@ -7,5 +7,8 @@ export default function firebase_subdomain(state = '', action) {
 
     case UPDATE_FIREBASE_SUBDOMAIN:
       return action.firebase_subdomain
+
+    default:
+      return state
   }
 }
