@@ -16,7 +16,7 @@ export const UPDATE_FILTER = 'UPDATE_FILTER'
 export const Filters = {
   ALL: 'ALL',
   ACTIVE: 'ACTIVE',
-  COMPLETED: 'COMPLETED'
+  COMPLETED: 'COMPLETED',
 }
 
 export function initialize(getInitialState) {
