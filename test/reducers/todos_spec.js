@@ -170,6 +170,5 @@ describe('todos reducer', () => {
 
       expect(new_state.length).toBe(state.length - 1)
     })
-
   })
 })

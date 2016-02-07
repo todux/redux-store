@@ -1,13 +1,14 @@
 {
-  "name": "redux-mvc-store",
+  "name": "todux-store",
   "version": "0.0.1",
-  "description": "An implementation of a redux store intended for use in a TodoMVC application.",
+  "description": "An implementation of a redux store intended for use in multiple todo applications.",
   "scripts": {
     "test": "mocha --compilers js:babel-register --recursive --reporter dot",
     "test:watch": "npm test -- --watch",
     "build": "babel -d dist src/",
     "build:watch": "npm run build -- --watch",
-    "clean": "rm -rf dist/*"
+    "clean": "rm -rf dist/*",
+    "prepublish": "npm run clean && npm test && npm run build"
   },
   "author": "Jonathan D. Johnson",
   "devDependencies": {
