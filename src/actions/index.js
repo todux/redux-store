@@ -2,7 +2,7 @@ import { find } from 'lodash'
 
 import getFirebaseRef from '../lib/firebase'
 
-export const INIT = 'INIT'
+export const RESET = 'RESET'
 export const IMPORT_TODO = 'CREATE_TODO'
 export const CREATE_TODO = 'CREATE_TODO'
 export const UPDATE_TODO = 'UPDATE_TODO'
@@ -22,7 +22,7 @@ export function initialize(getInitialState) {
     getInitialState((initialState) => {
 
       if (initialState) {
-        dispatch(init(initialState))
+        dispatch(reset(initialState))
       }
 
       const todosRef = getFirebaseRef(getState().firebase_subdomain)
@@ -45,8 +45,8 @@ export function initialize(getInitialState) {
   }
 }
 
-export function init(state) {
-  return { type: INIT, state }
+export function reset(state) {
+  return { type: RESET, state }
 }
 
 export function importTodo(existingTodo) {

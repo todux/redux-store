@@ -16,9 +16,6 @@ const actions = proxyquire('../../src/actions', {
 })
 
 const defaultState = {
-  todos: [],
-  filter: actions.Filters.ALL,
-  firebase_subdomain: '',
 }
 
 describe('actions', () => {
@@ -36,17 +33,30 @@ describe('actions', () => {
         firebase_subdomain: 'something-123',
       }
 
-      const store = mockStore(defaultState, [{
-        type: actions.INIT,
-        state: initialState
-      }], done)
+      const store = mockStore({
+        todos: [],
+        filter: actions.Filters.ALL,
+        firebase_subdomain: '',
+      }, [
+        { type: actions.RESET, state: initialState }
+      ], done)
 
       store.dispatch(actions.initialize((callback) => callback(initialState)))
     })
 
     it('should convert child_added firebase event to import action', (done) => {
-      const newTodo = { id: 'id', text: 'yayaya', completed: false, firebase_key: 'key' }
-      const store = mockStore(defaultState, [
+      const newTodo = {
+        id: 'id',
+        text: 'yayaya',
+        completed: false,
+        firebase_key: 'key'
+      }
+
+      const store = mockStore({
+        todos: [],
+        filter: actions.Filters.ALL,
+        firebase_subdomain: '',
+      }, [
         { type: actions.IMPORT_TODO, todo: newTodo }
       ], done)
 
@@ -92,7 +102,7 @@ describe('actions', () => {
     })
   })
 
-  describe('init', () => {
+  describe('reset', () => {
     it('should reset the state', () => {
       const newState = {
         todos: [],
@@ -100,8 +110,8 @@ describe('actions', () => {
         firebaes_subdomain: 'something-123',
       }
 
-      expect(actions.init(newState))
-        .toEqual({ type: actions.INIT, state: newState })
+      expect(actions.reset(newState))
+        .toEqual({ type: actions.RESET, state: newState })
     })
   })
 

@@ -10,7 +10,7 @@
     "clean": "rm -rf dist/*",
     "prepublish": "npm run clean && npm test && npm run build"
   },
-  "author": "Jonathan D. Johnson",
+  "author": "Jonathan D. Johnson <jondavidjohn.com>",
   "devDependencies": {
     "babel-cli": "^6.4.5",
     "babel-preset-es2015": "^6.3.13",

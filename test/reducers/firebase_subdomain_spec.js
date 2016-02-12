@@ -1,7 +1,7 @@
 import expect from 'expect'
 
 import reducer from '../../src/reducers/firebase_subdomain'
-import { INIT } from '../../src/actions'
+import { RESET } from '../../src/actions'
 
 describe('firebase_subdomain reducer', () => {
 
@@ -9,9 +9,9 @@ describe('firebase_subdomain reducer', () => {
     expect(reducer(undefined, {})).toEqual('')
   })
 
-  it('should apply the new subdomain on INIT', () => {
+  it('should apply the new subdomain on RESET', () => {
     expect(reducer(undefined, {
-      type: INIT,
+      type: RESET,
       state: { firebase_subdomain: 'something-123' },
     })).toEqual('something-123')
   })

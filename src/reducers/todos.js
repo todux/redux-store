@@ -2,7 +2,7 @@ import shortid from 'shortid'
 import { merge } from 'lodash'
 
 import {
-  INIT,
+  RESET,
   IMPORT_TODO,
   CREATE_TODO,
   UPDATE_TODO,
@@ -11,7 +11,7 @@ import {
 
 export default function todos(state = [], action) {
   switch (action.type) {
-    case INIT:
+    case RESET:
       return action.state.todos
     case IMPORT_TODO:
     case CREATE_TODO:

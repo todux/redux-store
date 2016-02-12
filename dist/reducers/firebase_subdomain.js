@@ -12,11 +12,8 @@ function firebase_subdomain() {
   var action = arguments[1];
 
   switch (action.type) {
-    case _actions.INIT:
+    case _actions.RESET:
       return action.state.firebase_subdomain;
-
-    case _actions.UPDATE_FIREBASE_SUBDOMAIN:
-      return action.firebase_subdomain;
 
     default:
       return state;

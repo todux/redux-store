@@ -3,29 +3,24 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Filters = exports.UPDATE_FILTER = exports.DELETE_TODO = exports.UPDATE_TODO = exports.CREATE_TODO = exports.IMPORT_TODO = exports.INIT = undefined;
+exports.Filters = exports.UPDATE_FILTER = exports.DELETE_TODO = exports.UPDATE_TODO = exports.CREATE_TODO = exports.IMPORT_TODO = exports.RESET = undefined;
 exports.initialize = initialize;
-exports.init = init;
+exports.reset = reset;
 exports.importTodo = importTodo;
 exports.createTodo = createTodo;
 exports.updateTodo = updateTodo;
 exports.deleteTodo = deleteTodo;
 exports.updateFilter = updateFilter;
 
-var _firebase = require('firebase');
+var _lodash = require('lodash');
+
+var _firebase = require('../lib/firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
-var _lodash = require('lodash');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function getFirebase(state) {
-  if (!state.firebase_subdomain) return false;
-  return new _firebase2.default('https://' + state.firebase_subdomain + '.firebaseio.com/todos');
-}
-
-var INIT = exports.INIT = 'INIT';
+var RESET = exports.RESET = 'RESET';
 var IMPORT_TODO = exports.IMPORT_TODO = 'CREATE_TODO';
 var CREATE_TODO = exports.CREATE_TODO = 'CREATE_TODO';
 var UPDATE_TODO = exports.UPDATE_TODO = 'UPDATE_TODO';
@@ -47,10 +42,10 @@ function initialize(getInitialState) {
     getInitialState(function (initialState) {
 
       if (initialState) {
-        dispatch(init(initialState));
+        dispatch(reset(initialState));
       }
 
-      var todosRef = getFirebase(getState());
+      var todosRef = (0, _firebase2.default)(getState().firebase_subdomain);
       if (todosRef) {
         todosRef.on('child_added', function (snapshot) {
           if (!(0, _lodash.find)(getState().todos, { id: snapshot.val().id })) {
@@ -70,8 +65,8 @@ function initialize(getInitialState) {
   };
 }
 
-function init(state) {
-  return { type: INIT, state: state };
+function reset(state) {
+  return { type: RESET, state: state };
 }
 
 function importTodo(existingTodo) {
@@ -82,7 +77,7 @@ function createTodo(todo) {
   return function (dispatch, getState) {
     dispatch({ type: CREATE_TODO, todo: todo });
 
-    var todosRef = getFirebase(getState());
+    var todosRef = (0, _firebase2.default)(getState().firebase_subdomain);
     if (todosRef) {
       todo = getState().todos[0];
       var todoRef = todosRef.push(todo);
@@ -94,8 +89,7 @@ function createTodo(todo) {
 function updateTodo(id, update) {
   return function (dispatch, getState) {
     dispatch({ type: UPDATE_TODO, id: id, update: update });
-
-    var todosRef = getFirebase(getState());
+    var todosRef = (0, _firebase2.default)(getState().firebase_subdomain);
     if (todosRef) {
       var updatedTodo = (0, _lodash.find)(getState().todos, { id: id });
       todosRef.child(updatedTodo.firebase_key).update({
@@ -113,7 +107,7 @@ function deleteTodo(id) {
     if (!todo) return;
     dispatch({ type: DELETE_TODO, id: id });
 
-    var todosRef = getFirebase(getState());
+    var todosRef = (0, _firebase2.default)(getState().firebase_subdomain);
     if (todosRef) {
       todosRef.child(todo.firebase_key).remove();
     }

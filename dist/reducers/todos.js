@@ -20,7 +20,7 @@ function todos() {
   var action = arguments[1];
 
   switch (action.type) {
-    case _actions.INIT:
+    case _actions.RESET:
       return action.state.todos;
     case _actions.IMPORT_TODO:
     case _actions.CREATE_TODO:
