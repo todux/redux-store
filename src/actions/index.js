@@ -1,10 +1,6 @@
-import Firebase from 'firebase'
 import { find } from 'lodash'
 
-function getFirebase(state) {
-  if (!state.firebase_subdomain) return false
-  return new Firebase(`https://${state.firebase_subdomain}.firebaseio.com/todos`)
-}
+import getFirebaseRef from '../lib/firebase'
 
 export const INIT = 'INIT'
 export const IMPORT_TODO = 'CREATE_TODO'
@@ -29,7 +25,7 @@ export function initialize(getInitialState) {
         dispatch(init(initialState))
       }
 
-      const todosRef = getFirebase(getState())
+      const todosRef = getFirebaseRef(getState().firebase_subdomain)
       if (todosRef) {
         todosRef.on('child_added', (snapshot) => {
           if(!find(getState().todos, { id: snapshot.val().id })) {
@@ -61,7 +57,7 @@ export function createTodo(todo) {
   return (dispatch, getState) => {
     dispatch({ type: CREATE_TODO, todo })
 
-    const todosRef = getFirebase(getState())
+    const todosRef = getFirebaseRef(getState().firebase_subdomain)
     if (todosRef) {
       todo = getState().todos[0]
       const todoRef = todosRef.push(todo)
@@ -73,8 +69,7 @@ export function createTodo(todo) {
 export function updateTodo(id, update) {
   return (dispatch, getState) => {
     dispatch({ type: UPDATE_TODO, id, update })
-
-    const todosRef = getFirebase(getState())
+    const todosRef = getFirebaseRef(getState().firebase_subdomain)
     if (todosRef) {
       const updatedTodo = find(getState().todos, {id})
       todosRef.child(updatedTodo.firebase_key).update({
@@ -92,7 +87,7 @@ export function deleteTodo(id) {
     if (!todo) return;
     dispatch({ type: DELETE_TODO, id })
 
-    const todosRef = getFirebase(getState())
+    const todosRef = getFirebaseRef(getState().firebase_subdomain)
     if (todosRef) {
       todosRef.child(todo.firebase_key).remove()
     }
